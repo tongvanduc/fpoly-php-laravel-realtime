@@ -15,7 +15,7 @@ document.getElementById('task-form').addEventListener('submit', function(event) 
     const description = document.getElementById('description').value;
     const assignedTo = document.getElementById('assigned_to').value;
 
-    // Gửi yêu cầu POST đến API để tạo Task
+    // Gửi yêu cầu POST đến link để tạo Task
     axios.post('/tasks', {
         title: title,
         description: description,

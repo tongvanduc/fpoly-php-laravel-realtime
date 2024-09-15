@@ -6,6 +6,9 @@ document.getElementById('chat-with').textContent = 'User ' + receiverId;
 // Kết nối đến Presence Channel với Laravel Echo
 window.Echo.join(`chat.${roomId}`)
     .here((users) => {
+        console.log('==============here============');
+        console.table(users);
+
         if (users.length > 1) {
             document.getElementById('user-status').textContent = 'Online';
         } else {
@@ -13,14 +16,14 @@ window.Echo.join(`chat.${roomId}`)
         }
     })
     .joining((user) => {
+        console.log('==============joining============');
+        console.table(user);
         document.getElementById('user-status').textContent = 'Online';
     })
     .leaving((user) => {
+        console.log('==============leaving============');
+        console.table(user);
         document.getElementById('user-status').textContent = 'Offline';
-    })
-    .listen('MessageSent', (event) => {
-        console.log(event.message);
-        appendMessage(event.message, event.sender_id);
     });
 
 // Gửi tin nhắn
@@ -33,7 +36,7 @@ document.getElementById('send-message-btn').addEventListener('click', function()
         return;
     }
 
-    // Gửi tin nhắn qua API
+    // Gửi tin nhắn qua Link
     axios.post('/messages/send', {
         message: message,
         receiver_id: receiverId,

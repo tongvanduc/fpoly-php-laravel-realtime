@@ -17,7 +17,7 @@ class TaskController extends Controller
             'assigned_by' => auth()->id(),
         ]);
 
-        broadcast(new TaskAssigned($task, $task->assigned_to))->toOthers();
+        broadcast(new TaskAssigned($task, $task->assigned_to) )->toOthers();
 
         return response()->json(['message' => 'Task created and notification sent!']);
     }

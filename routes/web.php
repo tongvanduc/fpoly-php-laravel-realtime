@@ -33,7 +33,10 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('private', function () {
 
-            $userOthers = User::query()->where('id', '!=', auth()->id())->pluck('name', 'id')->all();
+            $userOthers = User::query()
+                ->where('id', '!=', auth()->id())
+                ->pluck('name', 'id')
+                ->all();
 
             return view('private', compact('userOthers'));
         });
@@ -44,5 +47,5 @@ Route::middleware('auth')
             return view('chat', compact('roomId', 'receiverId'));
         });
 
-        Route::post('/messages/send', [MessageController::class, 'sendMessage'])->middleware('auth');
+        Route::post('/messages/send', [MessageController::class, 'sendMessage']);
     });
